@@ -1,0 +1,17 @@
+{
+  "name": "rssnewsapi",
+  "version": "1.0.0",
+  "description": "News API for fetching news from RSS",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Antonio Stipić",
+  "license": "ISC",
+  "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "express": "^4.16.4",
+    "mysql": "^2.16.0",
+    "rss-to-json": "^1.0.4"
+  }
+}
