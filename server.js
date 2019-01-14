@@ -1,11 +1,26 @@
 const express = require("express");
+const bodyParser = require("body-parser");
+const cookieParser = require("cookie-parser");
 const Feed = require("rss-to-json");
 const mysql = require("mysql");
 const fs = require("fs");
 const bcrypt = require("bcryptjs");
+const session = require("express-session")
 
 const app = express();
 const port = process.env.PORT || 3000;
+
+
+app.use(session({
+    secret: "RssNewsAPI",
+    resave: true,
+    saveUninitialized: true
+}));
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use(cookieParser());
+app.use(express.static(__dirname + "/static"));
+
 
 let connection = mysql.createConnection({
     host: "85.10.205.173",
@@ -25,22 +40,112 @@ JSONsources = JSON.parse(JSONsources);
 
 app.get("/", (request, response) => {
 
-    bcrypt.hash("123", 10, function (err, hash) {
-        console.log(hash);
-    });
+    response.redirect("/home");
 
-    connection.query("SELECT * FROM keysAPI", function (err, result, fields) {
-        if (err) {
-            console.log(err);
+});
 
-            response.setHeader("Content-Type", "application/json");
-            response.json({code: 500, message: "Internal Server Error"});
-        }
+app.get("/home", (request, response) => {
+    response.sendFile(__dirname + "/static/views/home.html");
+});
+
+app.get("/analytics", (request, response) => {
+
+    sess = request.session;
+
+    if (sess.sessid) {
+        response.sendFile(__dirname + "/static/views/analytics.html");
+    } else {
+        response.redirect("/home");
+    }
+});
+
+app.get("/keys", (request, response) => {
+    sess = request.session;
+
+    if (sess.sessid) {
+        response.sendFile(__dirname + "/static/views/keys.html");
+    } else {
+        response.redirect("/home");
+    }
+});
+
+app.get("/dashboard", (request, response) => {
+    sess = request.session;
+
+    if (sess.sessid) {
+        sessidExists(sess.sessid, function (error, data) {
+            if (error) {
+                console.log("SESSID EXISTS ERROR : ", err);
+            } else {
+                response.sendFile(__dirname + "/static/views/dashboard.html");
+            }
+        });
+    } else {
+        response.redirect("/home");
+    }
+
+})
+
+app.get("/login", function (request, response) {
+    if (request.session.sessid) {
+        response.redirect("/dashboard");
+    } else {
+        response.sendFile(__dirname + "/static/views/login.html");
+    }
+});
+
+app.post("/login", function (request, response) {
+    let username = request.body.username;
+    let password = request.body.password;
+
+    if (username != undefined && password != undefined) {
+
+        userExists(username, function (error, data) {
+            if (error) {
+                console.log("USER EXISTS ERROR : ", err);
+            } else {
+                db_username = "prazno";
+                db_password = "prazno";
+                db_sessid = "prazno";
+                if (data == username) {
+
+                    connection.query("SELECT * FROM users WHERE username='" + username + "';", function (error, result) {
+                        let str = JSON.stringify(result);
+                        result = JSON.parse(str);
+
+                        let db_username = result[0].username;
+                        let db_password = result[0].password;
+                        let db_sessid = result[0].sessid;
+                        let db_id = result[0].id;
+
+                        bcrypt.compare(password, db_password, function (err, res) {
+                            if (db_username == username && res) {
+                                console.log("User: '" + username + "' successfully logged in!");
+                                request.session.sessid = db_sessid;
+                                request.session.username = db_username;
+                                request.session.userId = db_id;
+                                response.redirect("/dashboard");
+                            } else {
+                                console.log("User: '" + username + "' entered wrong password!");
+                                response.send("/error?error=924");
+                            }
+                        });
 
 
-        response.json({code: 200, message: "Hello World!"});
-        console.log(result)
-    });
+                        //response.render("login.html");
+                    });
+
+                } else {
+                    console.log("Entered user: '" + username + "' does not exist!");
+                    response.send("error?error=956");
+                }
+            }
+        });
+
+    } else {
+        console.log("Username: '" + username + "', password: '" + password + "', one of them is undefined");
+        response.send("error?error=925");
+    }
 });
 
 app.get("/refresh/:code", (request, response) => {
@@ -82,7 +187,7 @@ app.get("/news", (request, response) => {
             console.log(err);
 
             response.setHeader("Content-Type", "application/json");
-            response.json({code: 500, message: "Internal Server Error"});
+            response.json({ code: 500, message: "Internal Server Error" });
         }
 
         let dbKey = result[0];
@@ -96,7 +201,7 @@ app.get("/news", (request, response) => {
                         console.log(err);
 
                         response.setHeader("Content-Type", "application/json");
-                        response.json({code: 500, message: "Internal Server Error"});
+                        response.json({ code: 500, message: "Internal Server Error" });
                     }
 
                     response.setHeader("Content-Type", "application/json");
@@ -118,6 +223,41 @@ app.get("/news", (request, response) => {
         // console.log(result[0]);
     });
 
+});
+
+app.post("/fetchUserData", (request, response) => {
+    if (request.session.sessid) {
+        response.json({ username: request.session.username, sessid: request.session.sessid })
+    } else {
+        unauthorized(response);
+    }
+});
+
+app.post("/fetchApiKeys", (request, response) => {
+    if (request.session.sessid) {
+        connection.query("SELECT * FROM keysAPI WHERE owner=?", [request.session.userId], function (err, result) {
+
+            if (err) {
+                console.log(err)
+            } else {
+                response.json(result);
+            }
+
+        });
+    } else {
+        unauthorized(response);
+    }
+});
+
+app.get("/logout", function (request, response) {
+	let username = request.session.username;
+	request.session.destroy();
+	console.log("User: '" + username + "' successfully logged out!");
+	response.redirect("/home");
+});
+
+app.get("*", (request, response) => {
+    response.redirect("/home");
 });
 
 app.listen(port, () => {
@@ -163,6 +303,38 @@ function fetchAndInsertStory(language, category, i) {
                     console.log(link);
                 }
             });
+        }
+    });
+}
+
+function userExists(username, callback) {
+    connection.query("SELECT username FROM users WHERE username='" + username + "';", function (error, result) {
+        let str = JSON.stringify(result);
+        result = JSON.parse(str);
+        if (result[0]) {
+            if (result[0].username == username) {
+                callback(null, result[0].username);
+            } else {
+                callback(null, null);
+            }
+        } else {
+            callback(null, null);
+        }
+    });
+}
+
+function sessidExists(sessid, callback) {
+    connection.query("SELECT sessid FROM users WHERE sessid='" + sessid + "';", function (error, result) {
+        let str = JSON.stringify(result);
+        result = JSON.parse(str);
+        if (result[0]) {
+            if (result[0].sessid == sessid) {
+                callback(null, result[0].sessid);
+            } else {
+                callback(null, null);
+            }
+        } else {
+            callback(null, null);
         }
     });
 }

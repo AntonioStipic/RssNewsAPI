@@ -1,0 +1,16 @@
+<svg width="550" height="84" xmlns="http://www.w3.org/2000/svg">
+ <!-- Created with Method Draw - http://github.com/duopixel/Method-Draw/ -->
+
+ <g>
+  <title>background</title>
+  <rect fill="none" id="canvas_background" height="86" width="552" y="-1" x="-1"/>
+  <g display="none" overflow="visible" y="0" x="0" height="100%" width="100%" id="canvasGrid">
+   <rect fill="url(#gridpattern)" stroke-width="0" y="0" x="0" height="100%" width="100%"/>
+  </g>
+ </g>
+ <g>
+  <title>Layer 1</title>
+  <path stroke="#000" id="svg_1" d="m0.759411,44.851485c7.242059,0 14.051194,2.835179 19.16628,7.9785c5.126851,5.145674 7.94556,12.001867 7.94556,19.298041l11.164252,0c0,-21.194435 -17.17342,-38.433737 -38.278445,-38.433737l0,11.157195l0.002353,0zm0.014117,-19.782728c25.817775,0 46.816922,21.116791 46.816922,47.071034l11.159547,0c0,-32.106934 -26.008355,-58.230581 -57.978821,-58.230581l0,11.159548l0.002353,0zm15.434667,39.27135c0,4.270415 -3.461036,7.733804 -7.729098,7.733804s-7.729098,-3.463389 -7.729098,-7.733804c0,-4.265709 3.461036,-7.729099 7.729098,-7.729099s7.729098,3.461036 7.729098,7.729099z" stroke-width="1.5" fill="#5983e8"/>
+  <text style="cursor: move;" stroke="#000000" transform="matrix(1.4399690628051758,0,0,1.4399690628051758,-142.05501115322113,-83.1266548037529) " xml:space="preserve" text-anchor="start" font-family="Oswald, sans-serif" font-size="50" id="svg_2" y="104.443349" x="143.934909" stroke-width="1.5" fill="#5983e8">RSS News API</text>
+ </g>
+</svg>
