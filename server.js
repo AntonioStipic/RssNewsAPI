@@ -5,7 +5,7 @@ const fs = require("fs");
 const bcrypt = require("bcryptjs");
 
 const app = express();
-const port = 80;
+const port = process.env.PORT || 3000;
 
 let connection = mysql.createConnection({
     host: "85.10.205.173",
