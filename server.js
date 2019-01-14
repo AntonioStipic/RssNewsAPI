@@ -249,6 +249,45 @@ app.post("/fetchApiKeys", (request, response) => {
     }
 });
 
+app.post("/deleteApiKey", (request, response) => {
+    if (request.session.sessid) {
+        keyID = request.body.keyID
+
+        
+        connection.query("DELETE FROM keysAPI WHERE keyID=?", [keyID], function (err, result) {
+            if (err) {
+                console.log(err)
+            } else {
+                response.json({code: 200, message: "success"});
+            }
+            
+        });
+
+    } else {
+        unauthorized(response);
+    }
+});
+
+app.post("/renameApiKey", (request, response) => {
+    if (request.session.sessid) {
+        name = request.body.name
+        keyID = request.body.keyID
+
+        
+        connection.query("UPDATE keysAPI SET name=? WHERE keyID=?", [name, keyID], function (err, result) {
+            if (err) {
+                console.log(err)
+            } else {
+                response.json({code: 200, message: "success"});
+            }
+            
+        });
+
+    } else {
+        unauthorized(response);
+    }
+});
+
 app.get("/logout", function (request, response) {
 	let username = request.session.username;
 	request.session.destroy();

@@ -25,6 +25,10 @@
     <!-- endinject -->
     <link rel="shortcut icon" href="images/favicon.png" />
 
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous">
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/7.33.1/sweetalert2.all.min.js"></script>
+
 </head>
 
 <body ng-controller="KeysController as KeysCtrl">
@@ -135,7 +139,11 @@
                                             <tr ng-repeat="key in keys">
                                                 <td>{{key.keyID}}</td>
                                                 <td>{{key.name}}</td>
-                                                <td>uredi</td>
+                                                <td>
+                                                    
+                                                    <button type="button" class="btn btn-dark iconButton" ng-click="deleteKey(key.keyID)"><i class="fas fa-trash-alt"></i></button>
+                                                    <button type="button" class="btn btn-dark iconButton" ng-click="editKey(key)"><i class="fas fa-edit"></i></button>
+                                                </td>
                                             </tr>
                                         </tbody>
                                     </table>

@@ -16309,3 +16309,10 @@ ul {
   width: 50px;
   margin-left: calc(50% - 25px);
 }
+
+.iconButton {
+  padding: 5px;
+  padding-left: 10px;
+  margin: 0;
+  text-align: center;
+}
