@@ -97,7 +97,7 @@
                         <div class="col-lg-12 grid-margin stretch-card">
                             <div class="card">
                                 <div class="card-body">
-                                    <h4 class="card-title">Example URL:</h4>
+                                    <h4>Example URL:</h4>
 
 
                                     <input disabled type="text" class="form-control fs-2" ng-model="exampleURL">
@@ -111,15 +111,15 @@
                         <div class="col-md-4 grid-margin stretch-card">
                             <div class="card">
                                 <div class="card-body">
-                                    <h4 class="card-title">Parameters</h4>
+                                    <h4>Parameters</h4>
                                     <p class="card-description">
                                         <small class="text-muted">
                                             List of available parameters
                                         </small>
                                     </p>
                                     <ul>
-                                        <li>Category</li>
                                         <li>Language</li>
+                                        <li>Category</li>
                                         <li>Order</li>
                                         <li>Limit</li>
                                     </ul>
@@ -129,7 +129,7 @@
                         <div class="col-md-8 grid-margin stretch-card">
                             <div class="card">
                                 <div class="card-body">
-                                    <h4 class="card-title">Example output</h4>
+                                    <h4>Example output</h4>
                                     <p class="card-description">
                                         <small class="text-muted">
                                             Example of json that API returns
@@ -137,13 +137,84 @@
                                     </p>
                                     <div>
                                         <div class="form-group">
-                                            <textarea disabled class="form-control fs-1" id="exampleTextarea1" rows="5" ng-model="exampleOutput"></textarea>
+                                            <textarea disabled class="form-control fs-1" rows="5" ng-model="exampleOutput"></textarea>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
+
+                    <div class="row">
+                        <div class="col-lg-12 grid-margin stretch-card">
+                            <div class="card">
+                                <div class="card-body">
+                                    <h4>Language:</h4>
+                                    <p class="card-description">
+                                        <small class="text-muted">
+                                            List of available languages
+                                        </small>
+                                    </p>
+
+                                    <input disabled type="text" class="form-control fs-1" ng-model="languageList">
+                                    <br>
+                                    <p>By default language is set to "en"</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <div class="row">
+                        <div class="col-lg-12 grid-margin stretch-card">
+                            <div class="card">
+                                <div class="card-body">
+                                    <h4>Category:</h4>
+                                    <p class="card-description">
+                                        <small class="text-muted">
+                                            List of available categories per language
+                                        </small>
+                                    </p>
+
+                                    <div class="form-group">
+                                        <textarea disabled class="form-control fs-1" rows="20" ng-model="categoryList"></textarea>
+                                    </div>
+
+                                    <p>By default category is set to "latest"</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-6 grid-margin stretch-card">
+                            <div class="card">
+                                <div class="card-body">
+                                    <h4>Order:</h4>
+                                    
+                                    <p>
+                                        Order parameter can be either <i>"ASC"</i> or <i>"DESC"</i>.<br>
+                                        By using <i>"DESC"</i> news will be listed from latest to oldest and by using <i>"ASC"</i> news are listed from oldest to newest.<br><br>
+                                        By default order is set to "DESC".
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6 grid-margin stretch-card">
+                            <div class="card">
+                                <div class="card-body">
+                                    <h4>Limit:</h4>
+                                    
+                                    <p>
+                                        Limit parameter is optional.<br>Limit represents number of news that are fetched from API.<br><br>
+                                        By excluding limit parameter all news in the corresponding category and language will be fetched.
+                                    </p>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
                     <!-- content-wrapper ends -->
                     <!-- partial:partials/_footer.html -->
                     <footer class="footer">

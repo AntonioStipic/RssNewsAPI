@@ -46,7 +46,11 @@ app.get("/", (request, response) => {
 });
 
 app.get("/home", (request, response) => {
-    response.sendFile(__dirname + "/static/views/home.html");
+    if (request.session.sessid) {
+        response.redirect("/dashboard");
+    } else {
+        response.sendFile(__dirname + "/static/views/home.html");
+    }
 });
 
 app.get("/analytics", (request, response) => {
@@ -195,7 +199,7 @@ app.get("/news", (request, response) => {
     if (order != "ASC" && order != "DESC") {
         order = "DESC";
     }
-    
+
     category = category.toLowerCase();
     language = language.toLowerCase();
 
@@ -215,7 +219,7 @@ app.get("/news", (request, response) => {
             if (dbKey.permission > 0) {
 
                 let command = "";
-                
+
                 if (!limit) {
                     command = "SELECT * FROM stories WHERE language=? AND category=? ORDER BY time " + order;
                 } else {
@@ -282,6 +286,43 @@ app.post("/fetchApiKeys", (request, response) => {
             }
 
         });
+    } else {
+        unauthorized(response);
+    }
+});
+
+app.post("/fetchCategories", (request, response) => {
+
+    if (request.session.sessid) {
+
+        let result = {};
+
+        for (i in JSONsources) {
+            result[i] = [];
+            for (e in JSONsources[i]) {
+                result[i].push(e);
+            }
+        }
+
+        response.json(result);
+    } else {
+        unauthorized(response);
+    }
+});
+
+app.post("/fetchLanguages", (request, response) => {
+
+    if (request.session.sessid) {
+
+        let result = [];
+
+        for (i in JSONsources) {
+            result.push(i);
+        }
+
+        result = result.join(", ");
+
+        response.send(result);
     } else {
         unauthorized(response);
     }
@@ -467,7 +508,7 @@ function sessidExists(sessid, callback) {
 }
 
 function randomValueHex(len) {
-    return crypto.randomBytes(Math.ceil(len/2))
-	.toString('hex') // convert to hexadecimal format
-    .slice(0,len);   // return required number of characters
+    return crypto.randomBytes(Math.ceil(len / 2))
+        .toString('hex') // convert to hexadecimal format
+        .slice(0, len);   // return required number of characters
 }

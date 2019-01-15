@@ -14,4 +14,35 @@ app.controller("DashboardController", function ($rootScope, $scope, $http) {
         console.log("Error while fetching user data!");
     }
 
+    $http({
+        method: "POST",
+        url: "/fetchLanguages"
+    }).then(function successCallback(response) {
+        $rootScope.languageList = response.data;
+    }), function errorCallback(response) {
+        console.log("Error while fetching languages!");
+    }
+
+    $http({
+        method: "POST",
+        url: "/fetchCategories"
+    }).then(function successCallback(response) {
+        // $rootScope.data = response.data;
+
+        let result = JSON.stringify(response.data);
+        
+        result = result.split("{").join("{\n");
+        result = result.split("}").join(" }");
+        result = result.split("[").join(" [\n\t");
+        result = result.split('","').join('",\n\t"');
+        result = result.split("],").join(" ],\n");
+        result = result.split('"] ').join('" ]\n');
+        // result = result.replace("{", "{ ");
+
+        $scope.categoryList = result;
+        console.log(result);
+    }), function errorCallback(response) {
+        console.log("Error while fetching categories!");
+    }
+
 });
