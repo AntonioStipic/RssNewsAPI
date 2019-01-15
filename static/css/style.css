@@ -16316,3 +16316,14 @@ ul {
   margin: 0;
   text-align: center;
 }
+
+.fs-2 {
+  font-size: 1em;
+  font-style: italic;
+}
+
+.fs-1 {
+  font-size: 0.9em;
+
+  line-height: 1.5em;
+}

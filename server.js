@@ -195,6 +195,9 @@ app.get("/news", (request, response) => {
     if (order != "ASC" && order != "DESC") {
         order = "DESC";
     }
+    
+    category = category.toLowerCase();
+    language = language.toLowerCase();
 
 
     connection.query("SELECT * FROM keysAPI WHERE keyID=?", [appId], function (err, result, fields) {
