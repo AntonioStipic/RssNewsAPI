@@ -192,6 +192,7 @@ app.get("/news", (request, response) => {
 
         let dbKey = result[0];
 
+
         if (dbKey) {
             if (dbKey.permission > 0) {
 
@@ -206,6 +207,16 @@ app.get("/news", (request, response) => {
 
                     response.setHeader("Content-Type", "application/json");
                     response.json(result);
+
+
+                    let datetime = new Date().toISOString().slice(0, 19).replace("T", " ");
+
+                    connection.query("INSERT INTO queries VALUES (NULL, ?, ?, ?, ?)", [dbKey.owner, category, datetime, language], function (err) {
+                        if (err) {
+                            console.log(err);
+                        }
+                    })
+
 
                 });
 
@@ -253,14 +264,14 @@ app.post("/deleteApiKey", (request, response) => {
     if (request.session.sessid) {
         keyID = request.body.keyID
 
-        
+
         connection.query("DELETE FROM keysAPI WHERE keyID=?", [keyID], function (err, result) {
             if (err) {
                 console.log(err)
             } else {
-                response.json({code: 200, message: "success"});
+                response.json({ code: 200, message: "success" });
             }
-            
+
         });
 
     } else {
@@ -273,14 +284,14 @@ app.post("/renameApiKey", (request, response) => {
         name = request.body.name
         keyID = request.body.keyID
 
-        
+
         connection.query("UPDATE keysAPI SET name=? WHERE keyID=?", [name, keyID], function (err, result) {
             if (err) {
                 console.log(err)
             } else {
-                response.json({code: 200, message: "success"});
+                response.json({ code: 200, message: "success" });
             }
-            
+
         });
 
     } else {
@@ -288,15 +299,46 @@ app.post("/renameApiKey", (request, response) => {
     }
 });
 
+app.post("/countQueries", (request, response) => {
+    // SELECT       `language`,
+    //          COUNT(`language`) AS `occurences` 
+    // FROM     `queries`
+    // GROUP BY `language`
+    // ORDER BY `occurences` DESC
+    // LIMIT    6;
+
+
+
+
+    let select = request.body.select;
+
+    let command = "";
+    if (select == "language") {
+        command = "SELECT `language`, COUNT(`language`) AS `occurences` FROM `queries` GROUP BY `language` ORDER BY `occurences` DESC LIMIT 6;"
+    } else if (select == "category") {
+        command = "SELECT `category`, COUNT(`category`) AS `occurences` FROM `queries` GROUP BY `category` ORDER BY `occurences` DESC LIMIT 6;"
+    }
+
+    // connection.query("SELECT ?, COUNT(?) AS `occurences` FROM `queries` GROUP BY ? ORDER BY `occurences` DESC LIMIT 6;", [select, select, select], function (err, result) {
+    connection.query(command, function (err, result) {
+        if (err) {
+            console.log(err);
+        }
+
+        response.json(JSON.stringify(result));
+    });
+
+});
+
 app.get("/logout", function (request, response) {
-	let username = request.session.username;
-	request.session.destroy();
-	console.log("User: '" + username + "' successfully logged out!");
-	response.redirect("/home");
+    let username = request.session.username;
+    request.session.destroy();
+    console.log("User: '" + username + "' successfully logged out!");
+    response.redirect("/home");
 });
 
 app.get("*", (request, response) => {
-    response.redirect("/home");
+    response.sendFile(__dirname + "/static/views/404.html");
 });
 
 app.listen(port, () => {
