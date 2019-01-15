@@ -6,6 +6,7 @@ const mysql = require("mysql");
 const fs = require("fs");
 const bcrypt = require("bcryptjs");
 const session = require("express-session")
+const crypto = require("crypto");
 
 const app = express();
 const port = process.env.PORT || 3000;
@@ -173,12 +174,26 @@ app.get("/news", (request, response) => {
     let category = request.query.category;
     let language = request.query.language;
 
+    let limit = request.query.limit;
+
+    let order = request.query.order;
+
     if (!category) {
         category = "latest";
     }
 
     if (!language) {
         language = "en";
+    }
+
+    if (!order) {
+        order = "DESC";
+    }
+
+    order = order.toUpperCase();
+
+    if (order != "ASC" && order != "DESC") {
+        order = "DESC";
     }
 
 
@@ -196,8 +211,17 @@ app.get("/news", (request, response) => {
         if (dbKey) {
             if (dbKey.permission > 0) {
 
+                let command = "";
+                
+                if (!limit) {
+                    command = "SELECT * FROM stories WHERE language=? AND category=? ORDER BY time " + order;
+                } else {
+                    command = "SELECT * FROM stories WHERE language=? AND category=? ORDER BY time " + order + " LIMIT " + limit;
+                }
 
-                connection.query("SELECT * FROM stories WHERE language=? AND category=?", [language, category], function (err, result, fields) {
+
+
+                connection.query(command, [language, category], function (err, result, fields) {
                     if (err) {
                         console.log(err);
 
@@ -292,6 +316,25 @@ app.post("/renameApiKey", (request, response) => {
                 response.json({ code: 200, message: "success" });
             }
 
+        });
+
+    } else {
+        unauthorized(response);
+    }
+});
+
+app.post("/createApiKey", (request, response) => {
+    if (request.session.sessid) {
+        let name = request.body.name
+        let owner = request.session.userId;
+        let id = randomValueHex(32);
+
+        connection.query("INSERT INTO keysAPI VALUES (NULL, ?, 1, ?, ?)", [id, owner, name], function (err, result) {
+            if (err) {
+                console.log(err)
+            } else {
+                response.json({ code: 200, message: "success" });
+            }
         });
 
     } else {
@@ -418,4 +461,10 @@ function sessidExists(sessid, callback) {
             callback(null, null);
         }
     });
+}
+
+function randomValueHex(len) {
+    return crypto.randomBytes(Math.ceil(len/2))
+	.toString('hex') // convert to hexadecimal format
+    .slice(0,len);   // return required number of characters
 }

@@ -36,10 +36,10 @@
         <!-- partial:partials/_navbar.html -->
         <nav class="navbar default-layout col-lg-12 col-12 p-0 fixed-top d-flex flex-row">
             <div class="text-center navbar-brand-wrapper d-flex align-items-top justify-content-center">
-                <a class="navbar-brand brand-logo" href="index.html">
+                <a class="navbar-brand brand-logo" href="/dashboard">
                     <img src="images/logo.png" alt="logo" />
                 </a>
-                <a class="navbar-brand brand-logo-mini" href="index.html">
+                <a class="navbar-brand brand-logo-mini" href="/dashboard">
                     <img src="images/logo-mini.png" alt="logo" />
                 </a>
             </div>
@@ -95,7 +95,7 @@
                 </ul>
             </nav>
             <!-- partial -->
-            <div class="main-panel">
+            <div class="main-panel" ng-cloak>
                 <div class="content-wrapper">
 
 
@@ -109,10 +109,9 @@
                         <div class="card">
                             <div class="card-body">
                                 <h4 class="card-title">Your API keys:</h4>
-                                <!-- <p class="card-description">
-                                    Add class
-                                    <code>.table-striped</code>
-                                </p> -->
+                                
+                                <button class="btn btn-primary" ng-click="createKey()">Create key <i class="mdi mdi-plus"></i></button>
+
                                 <div class="table-responsive">
                                     <table class="table table-striped">
                                         <thead>
@@ -141,8 +140,8 @@
                                                 <td>{{key.name}}</td>
                                                 <td>
                                                     
-                                                    <button type="button" class="btn btn-dark iconButton" ng-click="deleteKey(key.keyID)"><i class="fas fa-trash-alt"></i></button>
                                                     <button type="button" class="btn btn-dark iconButton" ng-click="editKey(key)"><i class="fas fa-edit"></i></button>
+                                                    <button type="button" class="btn btn-dark iconButton" ng-click="deleteKey(key.keyID)"><i class="fas fa-trash-alt"></i></button>
                                                 </td>
                                             </tr>
                                         </tbody>

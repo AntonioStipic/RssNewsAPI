@@ -32,10 +32,10 @@
         <!-- partial:partials/_navbar.html -->
         <nav class="navbar default-layout col-lg-12 col-12 p-0 fixed-top d-flex flex-row">
             <div class="text-center navbar-brand-wrapper d-flex align-items-top justify-content-center">
-                <a class="navbar-brand brand-logo" href="index.html">
+                <a class="navbar-brand brand-logo" href="/dashboard">
                     <img src="images/logo.png" alt="logo" />
                 </a>
-                <a class="navbar-brand brand-logo-mini" href="index.html">
+                <a class="navbar-brand brand-logo-mini" href="/dashboard">
                     <img src="images/logo-mini.png" alt="logo" />
                 </a>
             </div>
@@ -78,7 +78,6 @@
                     <li class="nav-item">
                         <a class="nav-link active" href="/analytics">
                             <i class="menu-icon mdi mdi-chart-line"></i>
-                            <!-- <i class="menu-icon mdi mdi-rss"></i> -->
                             <span class="menu-title">Analytics</span>
                         </a>
                     </li>
@@ -91,7 +90,7 @@
                 </ul>
             </nav>
             <!-- partial -->
-            <div class="main-panel">
+            <div class="main-panel" ng-cloak>
                 <div class="content-wrapper">
                     <div class="row">
                         <div class="col-lg-6 grid-margin stretch-card">
@@ -183,6 +182,8 @@
     <!-- inject:js -->
     <!-- endinject -->
     <!-- Custom js for this page-->
+    <script src="js/off-canvas.js"></script>
+    <script src="js/misc.js"></script>
     <script src="../../js/chart.js"></script>
     <!-- End custom js for this page-->
 </body>

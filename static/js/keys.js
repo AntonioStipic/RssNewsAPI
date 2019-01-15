@@ -44,7 +44,7 @@ app.controller("KeysController", function ($rootScope, $scope, $http) {
         //     })
 
         const { value: name } = await Swal({
-            title: "Change key name",
+            title: "Change key name:",
             input: "text",
             inputValue: key.name,
             showCancelButton: true,
@@ -105,7 +105,35 @@ app.controller("KeysController", function ($rootScope, $scope, $http) {
                 }
 
             }
+        });
+    }
+
+
+    $scope.createKey = async function () {
+        const { value: name } = await Swal({
+            title: "New key name:",
+            input: "text",
+            inputValue: "",
+            showCancelButton: true,
+            inputValidator: (value) => {
+                return !value && "Key name cannot be empty!";
+            }
         })
+
+        if (name) {
+            let data = { name: name };
+            $http({
+                method: "POST",
+                url: "/createApiKey",
+                data: data
+            }).then(function successCallback(response) {
+                console.log(response);
+
+                $scope.refreshKeys();
+            }), function errorCallback(response) {
+                console.log("Error while creating key!");
+            }
+        }
 
     }
 

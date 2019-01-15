@@ -12,6 +12,7 @@
     "bcryptjs": "^2.4.3",
     "body-parser": "^1.18.3",
     "cookie-parser": "^1.4.3",
+    "crypto": "^1.0.1",
     "express": "^4.16.4",
     "express-session": "^1.15.6",
     "mysql": "^2.16.0",

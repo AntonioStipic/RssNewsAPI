@@ -16123,16 +16123,16 @@ ul {
     height: 44px; }
     .auth.theme-one .auto-form-wrapper .form-group .input-group .form-control {
       border: 1px solid #e5e5e5;
-      border-right: none;
-      border-radius: 6px 0 0 6px; }
+      /* border-right: none; */
+      border-radius: 6px 6px 6px 6px; }
       .auth.theme-one .auto-form-wrapper .form-group .input-group .form-control:focus {
-        border-right: none;
+        /* border-right: none; */
         border-color: #e5e5e5; }
     .auth.theme-one .auto-form-wrapper .form-group .input-group .input-group-append {
       border-left: none; }
       .auth.theme-one .auto-form-wrapper .form-group .input-group .input-group-append .input-group-text {
-        border-radius: 0 6px 6px 0;
-        border-left: none;
+        border-radius: 6px 6px 6px 6px;
+        /* border-left: none; */
         border-color: #e5e5e5;
         color: #b6b6b6; }
   .auth.theme-one .auto-form-wrapper .form-group .submit-btn {
