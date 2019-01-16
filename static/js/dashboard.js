@@ -40,7 +40,7 @@ app.controller("DashboardController", function ($rootScope, $scope, $http) {
         // result = result.replace("{", "{ ");
 
         $scope.categoryList = result;
-        console.log(result);
+        // console.log(result);
     }), function errorCallback(response) {
         console.log("Error while fetching categories!");
     }

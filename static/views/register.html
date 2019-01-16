@@ -1,11 +1,11 @@
 <!DOCTYPE html>
-<html lang="en"  ng-app="RssNewsAPI">
+<html lang="en" ng-app="RssNewsAPI">
 
 <head>
   <!-- Required meta tags -->
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <title>RSS News API | Login </title>
+  <title>RSS News API | Register</title>
   <!-- plugins:css -->
   <link rel="stylesheet" href="../../vendors/iconfonts/mdi/css/materialdesignicons.min.css">
   <link rel="stylesheet" href="../../vendors/css/vendor.bundle.base.css">
@@ -23,57 +23,55 @@
 
   <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.7.5/angular.min.js"></script>
   <script src="/js/app.js"></script>
-  <script src="/js/login.js"></script>
+  <script src="/js/register.js"></script>
+
 </head>
 
-<body ng-controller="LoginController as LoginCtrl">
+<body ng-controller="RegisterController as RegisterCtrl">
   <div class="container-scroller">
     <div class="container-fluid page-body-wrapper full-page-wrapper auth-page">
-      <div class="content-wrapper d-flex align-items-center auth auth-bg-1 theme-one">
+      <div class="content-wrapper d-flex align-items-center auth register-bg-1 theme-one">
         <div class="row w-100">
           <div class="col-lg-4 mx-auto">
+            <h2 class="text-center mb-4">Register</h2>
             <div class="auto-form-wrapper">
               <form>
                 <div class="form-group">
-                  <label class="label">Username</label>
+                  <div class="input-group">
+                    <input type="text" class="form-control" placeholder="Email" name="email" ng-model="email">
+                  </div>
+                </div>
+                <div class="form-group">
                   <div class="input-group">
                     <input type="text" class="form-control" placeholder="Username" name="username" ng-model="username">
                   </div>
                 </div>
                 <div class="form-group">
-                  <label class="label">Password</label>
                   <div class="input-group">
-                    <input type="password" class="form-control" placeholder="*********" name="password" ng-model="password">
+                    <input type="password" class="form-control" placeholder="Password" name="password" ng-model="password">
                   </div>
                 </div>
                 <div class="form-group">
-                  <button type="submit" class="btn btn-primary submit-btn btn-block" ng-click="login()">Login</button>
+                  <div class="input-group">
+                    <input type="password" class="form-control" placeholder="Confirm Password" ng-model="password2">
+                  </div>
                 </div>
-                <div class="form-group d-flex justify-content-between">
-                  <!-- <a href="#" class="text-small forgot-password text-black">Forgot Password</a> -->
-                </div>
-                <!-- <div class="form-group">
-                  <button class="btn btn-block g-login">
-                    <img class="mr-3" src="../../images/file-icons/icon-google.svg" alt="">Log in with Google</button>
+                <!-- <div class="form-group d-flex justify-content-center">
+                  <div class="form-check form-check-flat mt-0">
+                    <label class="form-check-label">
+                      <input type="checkbox" class="form-check-input" checked> I agree to the terms
+                    </label>
+                  </div>
                 </div> -->
+                <div class="form-group">
+                  <button class="btn btn-primary submit-btn btn-block" ng-click="register()">Register</button>
+                </div>
                 <div class="text-block text-center my-3">
-                  <span class="text-small font-weight-semibold">Not a member?</span>
-                  <a href="/register" class="text-black text-small">Create new account</a>
+                  <span class="text-small font-weight-semibold">Already have and account?</span>
+                  <a href="/login" class="text-black text-small">Login</a>
                 </div>
               </form>
             </div>
-            <ul class="auth-footer">
-              <li>
-                <a href="#">Conditions</a>
-              </li>
-              <li>
-                <a href="#">Help</a>
-              </li>
-              <li>
-                <a href="#">Terms</a>
-              </li>
-            </ul>
-            <p class="footer-text text-center">copyright © 2019 Bootstrapdash. All rights reserved.</p>
           </div>
         </div>
       </div>

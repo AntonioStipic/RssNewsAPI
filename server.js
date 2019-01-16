@@ -99,6 +99,49 @@ app.get("/login", function (request, response) {
     }
 });
 
+app.get("/register", function (request, response) {
+    if (request.session.sessid) {
+        response.redirect("/dashboard");
+    } else {
+        response.sendFile(__dirname + "/static/views/register.html");
+    }
+});
+
+app.post("/register", function (request, response) {
+    let username = request.body.username;
+    let password = request.body.password;
+    let email = request.body.email;
+
+    if (username != undefined && password != undefined) {
+
+        // FOR some reason, this is unnecessary: connectToDatabase();
+
+        let userId = randomValueHex(8);
+        let sessid = randomValueHex(32);
+
+        bcrypt.hash(password, 10, function (err, hash) {
+            connection.query("INSERT INTO users VALUES (?, ?, ?, ?, ?)", [userId, username, email, hash, sessid], function (error, result) {
+                if (error) {
+                    if (error.code == "ER_DUP_ENTRY") {
+                        console.log(error.code, "for user:", username);
+
+                        response.json({code: 401, message: "Username or email already exists!"});
+                    } else {
+                        console.log(error.code);
+                    }
+                } else {
+                    console.log("User successfully added to database!");
+                    response.json({code: 200, message: "Successfully registered!"});
+                }
+            });
+        });
+
+    } else {
+        //response.sendFile(__dirname + "/static/views/error.html?error=925");
+        response.send("/error?error=925");
+    }
+});
+
 app.post("/login", function (request, response) {
     let username = request.body.username;
     let password = request.body.password;
@@ -129,10 +172,11 @@ app.post("/login", function (request, response) {
                                 request.session.sessid = db_sessid;
                                 request.session.username = db_username;
                                 request.session.userId = db_id;
-                                response.redirect("/dashboard");
+                                response.json({code: 200, message: "Success"});
                             } else {
                                 console.log("User: '" + username + "' entered wrong password!");
-                                response.send("/error?error=924");
+                                
+                                response.json({code: 401, message: "Wrong password!"});
                             }
                         });
 
@@ -142,7 +186,8 @@ app.post("/login", function (request, response) {
 
                 } else {
                     console.log("Entered user: '" + username + "' does not exist!");
-                    response.send("error?error=956");
+                    
+                    response.json({code: 401, message: "Username does not exist!"});
                 }
             }
         });
@@ -155,7 +200,9 @@ app.post("/login", function (request, response) {
 
 app.get("/refresh/:code", (request, response) => {
 
-    if (request.params.code == "sudo") {
+    let userId = request.session.userId;
+
+    if (request.params.code == "sudo" && userId == "aefabf96") {
         for (language in JSONsources) {
             for (category in JSONsources[language]) {
                 for (i in JSONsources[language][category]) {
@@ -295,16 +342,16 @@ app.post("/fetchCategories", (request, response) => {
 
     // if (request.session.sessid) {
 
-        let result = {};
+    let result = {};
 
-        for (i in JSONsources) {
-            result[i] = [];
-            for (e in JSONsources[i]) {
-                result[i].push(e);
-            }
+    for (i in JSONsources) {
+        result[i] = [];
+        for (e in JSONsources[i]) {
+            result[i].push(e);
         }
+    }
 
-        response.json(result);
+    response.json(result);
     // } else {
     //     unauthorized(response);
     // }
@@ -314,15 +361,15 @@ app.post("/fetchLanguages", (request, response) => {
 
     //if (request.session.sessid) {
 
-        let result = [];
+    let result = [];
 
-        for (i in JSONsources) {
-            result.push(i);
-        }
+    for (i in JSONsources) {
+        result.push(i);
+    }
 
-        result = result.join(", ");
+    result = result.join(", ");
 
-        response.send(result);
+    response.send(result);
     // } else {
     //     unauthorized(response);
     // }

@@ -25,7 +25,8 @@
     <!-- endinject -->
     <link rel="shortcut icon" href="images/favicon.png" />
 
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/"
+        crossorigin="anonymous">
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/7.33.1/sweetalert2.all.min.js"></script>
 
@@ -53,9 +54,9 @@
                         </a>
                         <div class="dropdown-menu dropdown-menu-right navbar-dropdown">
                             <br>
-                            <a class="dropdown-item">
+                            <!-- <a class="dropdown-item">
                                 Change Password
-                            </a>
+                            </a> -->
                             <a class="dropdown-item" href="/logout">
                                 Sign Out
                             </a>
@@ -109,7 +110,7 @@
                         <div class="card">
                             <div class="card-body">
                                 <h4 class="card-title">Your API keys:</h4>
-                                
+
                                 <button class="btn btn-primary" ng-click="createKey()">Create key <i class="mdi mdi-plus"></i></button>
 
                                 <div class="table-responsive">
@@ -139,9 +140,11 @@
                                                 <td>{{key.keyID}}</td>
                                                 <td>{{key.name}}</td>
                                                 <td>
-                                                    
-                                                    <button type="button" class="btn btn-dark iconButton" ng-click="editKey(key)"><i class="fas fa-edit"></i></button>
-                                                    <button type="button" class="btn btn-dark iconButton" ng-click="deleteKey(key.keyID)"><i class="fas fa-trash-alt"></i></button>
+
+                                                    <button type="button" class="btn btn-dark iconButton" ng-click="editKey(key)"><i
+                                                            class="fas fa-edit"></i></button>
+                                                    <button type="button" class="btn btn-dark iconButton" ng-click="deleteKey(key.keyID)"><i
+                                                            class="fas fa-trash-alt"></i></button>
                                                 </td>
                                             </tr>
                                         </tbody>
@@ -165,9 +168,9 @@
                 <!-- partial:partials/_footer.html -->
                 <footer class="footer">
                     <div class="container-fluid clearfix">
-                        <span class="text-muted d-block text-center text-sm-left d-sm-inline-block">Copyright © 2018
+                        <span class="text-muted d-block text-center text-sm-left d-sm-inline-block">Copyright © 2019
                             <a href="http://www.bootstrapdash.com/" target="_blank">Bootstrapdash</a>. All rights
-                            reserved.</span>
+                            reserved.<br>Made by: Antonio Stipić.</span>
                         <span class="float-none float-sm-right d-block mt-1 mt-sm-0 text-center">Hand-crafted & made
                             with
                             <i class="mdi mdi-heart text-danger"></i>
