@@ -14218,6 +14218,19 @@ html {
       margin-left: 0;
       width: 100%; } }
 
+.main-panel-home {
+  transition: width 0.25s ease, margin 0.25s ease;
+  width: calc(100%);
+  min-height: calc(100vh - 63px);
+  display: -webkit-flex;
+  display: flex;
+  -webkit-flex-direction: column;
+  flex-direction: column; }
+  @media (max-width: 991px) {
+    .main-panel {
+      margin-left: 0;
+      width: 100%; } }
+
 .content-wrapper {
   background: #f2f8f9;
   padding: 1.5rem 1.7rem;
@@ -16315,6 +16328,11 @@ ul {
   padding-left: 10px;
   margin: 0;
   text-align: center;
+}
+
+.fs-3 {
+  font-size: 1.2em;
+  font-style: italic;
 }
 
 .fs-2 {

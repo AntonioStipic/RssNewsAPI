@@ -1,20 +1,236 @@
-<html ng-app="RssNewsAPI">
+<!DOCTYPE html>
+<html lang="en" ng-app="RssNewsAPI">
 
 <head>
-    <title>RSS News API | Home</title>
 
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.7.5/angular.min.js"></script>
+    <script src="/js/app.js"></script>
     <script src="/js/home.js"></script>
 
-    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js" integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut" crossorigin="anonymous"></script>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js" integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k" crossorigin="anonymous"></script>
+    <title>RSS News API | Home</title>
+
+    <!-- plugins:css -->
+    <link rel="stylesheet" href="vendors/iconfonts/mdi/css/materialdesignicons.min.css">
+    <link rel="stylesheet" href="vendors/css/vendor.bundle.base.css">
+    <link rel="stylesheet" href="vendors/css/vendor.bundle.addons.css">
+    <!-- endinject -->
+    <!-- plugin css for this page -->
+    <!-- End plugin css for this page -->
+    <!-- inject:css -->
+    <link rel="stylesheet" href="css/style.css">
+    <!-- endinject -->
+    <link rel="shortcut icon" href="images/favicon.png" />
+
 </head>
 
 <body ng-controller="HomeController as HomeCtrl">
-    <a href="/login">Login</a>
+    <div class="container-scroller">
+        <!-- partial:partials/_navbar.html -->
+        <nav class="navbar default-layout col-lg-12 col-12 p-0 fixed-top d-flex flex-row">
+            <div class="text-center navbar-brand-wrapper d-flex align-items-top justify-content-center">
+                <a class="navbar-brand brand-logo" href="/dashboard">
+                    <img src="images/logo.png" alt="logo" />
+                </a>
+                <a class="navbar-brand brand-logo-mini" href="/dashboard">
+                    <img src="images/logo-mini.png" alt="logo" />
+                </a>
+            </div>
+            <div class="navbar-menu-wrapper d-flex align-items-center">
+                <ul class="navbar-nav navbar-nav-right">
+
+                    <a class="btn btn-secondary mr-1" href="/login" role="button">Sign In</a>
+                    <button type="button" class="btn btn-success">Sign Up</button>
+                </ul>
+                <button class="navbar-toggler navbar-toggler-right d-lg-none align-self-center" type="button"
+                    data-toggle="offcanvas">
+                    <span class="mdi mdi-menu"></span>
+                </button>
+            </div>
+        </nav>
+        <!-- partial -->
+        <div class="container-fluid page-body-wrapper">
+            <!-- partial:partials/_sidebar.html -->
+            <!-- partial -->
+            <div class="main-panel-home" ng-cloak>
+                <div class="content-wrapper">
+
+                    <div class="row">
+                        <div class="col-lg-12 grid-margin stretch-card">
+                            <div class="card">
+                                <div class="card-body">
+                                    <h4>What is RSS News API?</h4>
+
+                                    <p>RSS News API is free open source API for fetching <i>any</i> news.<br>Project is early in Beta phase and multiple languages will be added as well as more categories.<br><br><span class="fs-3">This API is completely FREE for use!</span><br><br>Check us out on <a href="https://github.com/AntonioStipic/RssNewsAPI">GitHub</a>.</p>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-lg-12 grid-margin stretch-card">
+                            <div class="card">
+                                <div class="card-body">
+                                    <h4>Example URL:</h4>
+
+
+                                    <input disabled type="text" class="form-control fs-2" ng-model="exampleURL">
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-4 grid-margin stretch-card">
+                            <div class="card">
+                                <div class="card-body">
+                                    <h4>Parameters</h4>
+                                    <p class="card-description">
+                                        <small class="text-muted">
+                                            List of available parameters
+                                        </small>
+                                    </p>
+                                    <ul>
+                                        <li>Language</li>
+                                        <li>Category</li>
+                                        <li>Order</li>
+                                        <li>Limit</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-8 grid-margin stretch-card">
+                            <div class="card">
+                                <div class="card-body">
+                                    <h4>Example output</h4>
+                                    <p class="card-description">
+                                        <small class="text-muted">
+                                            Example of json that API returns
+                                        </small>
+                                    </p>
+                                    <div>
+                                        <div class="form-group">
+                                            <textarea disabled class="form-control fs-1" rows="5" ng-model="exampleOutput"></textarea>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-lg-12 grid-margin stretch-card">
+                            <div class="card">
+                                <div class="card-body">
+                                    <h4>Language:</h4>
+                                    <p class="card-description">
+                                        <small class="text-muted">
+                                            List of available languages
+                                        </small>
+                                    </p>
+
+                                    <input disabled type="text" class="form-control fs-1" ng-model="languageList">
+                                    <br>
+                                    <p>By default language is set to "en"</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <div class="row">
+                        <div class="col-lg-12 grid-margin stretch-card">
+                            <div class="card">
+                                <div class="card-body">
+                                    <h4>Category:</h4>
+                                    <p class="card-description">
+                                        <small class="text-muted">
+                                            List of available categories per language
+                                        </small>
+                                    </p>
+
+                                    <div class="form-group">
+                                        <textarea disabled class="form-control fs-1" rows="20" ng-model="categoryList"></textarea>
+                                    </div>
+
+                                    <p>By default category is set to "latest"</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-6 grid-margin stretch-card">
+                            <div class="card">
+                                <div class="card-body">
+                                    <h4>Order:</h4>
+
+                                    <p>
+                                        Order parameter can be either <i>"ASC"</i> or <i>"DESC"</i>.<br>
+                                        By using <i>"DESC"</i> news will be listed from latest to oldest and by using
+                                        <i>"ASC"</i> news are listed from oldest to newest.<br><br>
+                                        By default order is set to "DESC".
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6 grid-margin stretch-card">
+                            <div class="card">
+                                <div class="card-body">
+                                    <h4>Limit:</h4>
+
+                                    <p>
+                                        Limit parameter is optional.<br>Limit represents number of news that are
+                                        fetched from API.<br><br>
+                                        By excluding limit parameter all news in the corresponding category and
+                                        language will be fetched.
+                                    </p>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- content-wrapper ends -->
+                    <!-- partial:partials/_footer.html -->
+                    <footer class="footer">
+                        <div class="container-fluid clearfix">
+                            <span class="text-muted d-block text-center text-sm-left d-sm-inline-block">Copyright ©
+                                2018
+                                <a href="http://www.bootstrapdash.com/" target="_blank">Bootstrapdash</a>. All rights
+                                reserved.</span>
+                            <span class="float-none float-sm-right d-block mt-1 mt-sm-0 text-center">Hand-crafted &
+                                made
+                                with
+                                <i class="mdi mdi-heart text-danger"></i>
+                            </span>
+                        </div>
+                    </footer>
+                    <!-- partial -->
+                </div>
+                <!-- main-panel ends -->
+            </div>
+            <!-- page-body-wrapper ends -->
+        </div>
+        <!-- container-scroller -->
+
+        <!-- plugins:js -->
+        <script src="vendors/js/vendor.bundle.base.js"></script>
+        <script src="vendors/js/vendor.bundle.addons.js"></script>
+        <!-- endinject -->
+        <!-- Plugin js for this page-->
+        <!-- End plugin js for this page-->
+        <!-- inject:js -->
+        <script src="js/off-canvas.js"></script>
+        <script src="js/misc.js"></script>
+        <!-- endinject -->
+        <!-- Custom js for this page-->
+        <!-- End custom js for this page-->
 </body>
 
 </html>

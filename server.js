@@ -293,7 +293,7 @@ app.post("/fetchApiKeys", (request, response) => {
 
 app.post("/fetchCategories", (request, response) => {
 
-    if (request.session.sessid) {
+    // if (request.session.sessid) {
 
         let result = {};
 
@@ -305,14 +305,14 @@ app.post("/fetchCategories", (request, response) => {
         }
 
         response.json(result);
-    } else {
-        unauthorized(response);
-    }
+    // } else {
+    //     unauthorized(response);
+    // }
 });
 
 app.post("/fetchLanguages", (request, response) => {
 
-    if (request.session.sessid) {
+    //if (request.session.sessid) {
 
         let result = [];
 
@@ -323,9 +323,9 @@ app.post("/fetchLanguages", (request, response) => {
         result = result.join(", ");
 
         response.send(result);
-    } else {
-        unauthorized(response);
-    }
+    // } else {
+    //     unauthorized(response);
+    // }
 });
 
 app.post("/deleteApiKey", (request, response) => {
