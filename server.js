@@ -24,10 +24,10 @@ app.use(express.static(__dirname + "/static"));
 
 
 let connection = mysql.createConnection({
-    host: "",
-    user: "",
-    password: "",
-    database: ""
+    host: process.env.DB_HOST,
+    user: process.env.DB_USER,
+    password: process.env.DB_PASSWORD,
+    database: "rssnewsapi"
 });
 
 connection.connect(function (err) {
