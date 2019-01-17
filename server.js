@@ -24,9 +24,9 @@ app.use(express.static(__dirname + "/static"));
 
 
 let connection = mysql.createConnection({
-    host: "85.10.205.173",
-    user: "rssnewsapi",
-    password: "Spaldin12345",
+    host: process.env.DB_HOST,
+    user: process.env.DB_USER,
+    password: process.env.DB_PASSWORD,
     database: "rssnewsapi"
 });
 
