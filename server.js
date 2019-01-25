@@ -8,6 +8,9 @@ const bcrypt = require("bcryptjs");
 const session = require("express-session")
 const crypto = require("crypto");
 
+const emitter = new EventEmitter();
+emitter.setMaxListeners(0);
+
 const app = express();
 const port = process.env.PORT || 3000;
 
