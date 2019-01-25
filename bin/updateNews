@@ -3,7 +3,7 @@
 const request = require("request");
 
 request.post(
-    "http://newsapi.xyz/" + process.env.CODE,
+    "http://newsapi.xyz/update/" + process.env.CODE,
     function (error, response, body) {
         if (!error) {
             console.log(body)
