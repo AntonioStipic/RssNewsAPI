@@ -218,7 +218,7 @@ app.get("/refresh/:code", (request, response) => {
 
 app.get("/update/:code", (request, response) => {
 
-    let code = request.session.code;
+    let code = request.params.code;
 
     bcrypt.compare(code, process.env.UPDATE_CODE, function (err, res) {
         
