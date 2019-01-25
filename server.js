@@ -8,6 +8,7 @@ const bcrypt = require("bcryptjs");
 const session = require("express-session")
 const crypto = require("crypto");
 
+const EventEmitter = require("events");
 const emitter = new EventEmitter();
 emitter.setMaxListeners(0);
 
