@@ -478,9 +478,9 @@ app.post("/countQueries", (request, response) => {
 
     let command = "";
     if (select == "language") {
-        command = "SELECT `language`, COUNT(`language`) AS `occurences` FROM `queries` WHERE owner=" + request.session.userId + " GROUP BY `language` ORDER BY `occurences` DESC LIMIT 6;"
+        command = "SELECT `language`, COUNT(`language`) AS `occurences` FROM `queries` WHERE owner='" + request.session.userId + "' GROUP BY `language` ORDER BY `occurences` DESC LIMIT 6;"
     } else if (select == "category") {
-        command = "SELECT `category`, COUNT(`category`) AS `occurences` FROM `queries` WHERE owner=" + request.session.userId + " GROUP BY `category` ORDER BY `occurences` DESC LIMIT 6;"
+        command = "SELECT `category`, COUNT(`category`) AS `occurences` FROM `queries` WHERE owner='" + request.session.userId + "' GROUP BY `category` ORDER BY `occurences` DESC LIMIT 6;"
     }
 
     // connection.query("SELECT ?, COUNT(?) AS `occurences` FROM `queries` GROUP BY ? ORDER BY `occurences` DESC LIMIT 6;", [select, select, select], function (err, result) {
