@@ -11,7 +11,6 @@ const crypto = require("crypto");
 const app = express();
 const port = process.env.PORT || 3000;
 
-
 app.use(session({
     secret: "RssNewsAPI",
     resave: true,
@@ -214,6 +213,24 @@ app.get("/refresh/:code", (request, response) => {
     } else {
         response.json({ code: 403, message: "Forbidden route" });
     }
+
+});
+
+app.get("/update/:code", (request, response) => {
+
+    let code = request.session.code;
+
+    bcrypt.compare(code, process.env.UPDATE_CODE, function (err, res) {
+        
+        if (err) {
+            console.log(err);
+
+            unauthorized(response);
+        } else {
+            response.json({code: 200, message: "Fetching news..."});
+        }
+        
+    });
 
 });
 

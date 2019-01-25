@@ -1,0 +1,12 @@
+#!/usr/bin/env node
+
+const request = require("request");
+
+request.post(
+    "http://newsapi.xyz/" + process.env.CODE,
+    function (error, response, body) {
+        if (!error) {
+            console.log(body)
+        }
+    }
+);
