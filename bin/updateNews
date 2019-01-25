@@ -2,7 +2,7 @@
 
 const request = require("request");
 
-request.post(
+request.get(
     "http://newsapi.xyz/update/" + process.env.CODE,
     function (error, response, body) {
         if (!error) {
