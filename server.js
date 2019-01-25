@@ -227,6 +227,15 @@ app.get("/update/:code", (request, response) => {
 
             unauthorized(response);
         } else {
+
+            for (language in JSONsources) {
+                for (category in JSONsources[language]) {
+                    for (i in JSONsources[language][category]) {
+                        fetchAndInsertStory(language, category, i);
+                    }
+                }
+            }
+
             response.json({code: 200, message: "Fetching news..."});
         }
         
