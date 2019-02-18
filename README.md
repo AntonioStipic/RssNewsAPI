@@ -2,6 +2,9 @@
 
 ![](https://github.com/AntonioStipic/RssNewsAPI/blob/master/static/images/logo.png?raw=true)
 
+[![Website](https://img.shields.io/website-up-down-green-red/http/shields.io.svg)](http://newsapi.xyz/) [![Status](https://img.shields.io/pypi/status/ansicolortags.svg)]()
+
+
 Open source API for fetching short news and articles. Powered by NodeJS and AngularJS.
 
 ## Website
@@ -175,5 +178,7 @@ Limit represents number of news that are fetched from API.
    }
 }
 ```
+
+[![ForTheBadge built-with-love](http://ForTheBadge.com/images/badges/built-with-love.svg)](https://GitHub.com/Naereen/)
 
 #### Made by: Antonio Stipić
